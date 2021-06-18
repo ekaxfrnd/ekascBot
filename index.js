@@ -13,6 +13,7 @@ bot.command('monitor', ctx => {
         if(curr.mtime != prev.mtime) {
             fs.readFile('snort.log', 'utf8', (err, data) => {
                 console.log(data)
+                ctx.reply(data)
             })
         }
     })
