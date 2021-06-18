@@ -5,8 +5,7 @@ const fs = require('fs')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
-    ctx.repl
-    y('haii')
+    ctx.reply('haii')
 })
 
 bot.command('monitor', ctx => {
