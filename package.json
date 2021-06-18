@@ -4,7 +4,7 @@
   "description": "a simple bot for my graduation college",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ekaxfrnd/ekascBot#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7",
     "telegraf": "^3.38.0"
   }
 }
