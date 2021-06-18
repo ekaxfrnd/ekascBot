@@ -10,8 +10,11 @@ bot.start(ctx => {
 
 bot.command('monitor', ctx => {
     fs.watchFile('snort.log', (curr, prev) => {
-        console.log(`the current mtime is: ${curr.mtime}`)
-        console.log(`the previous mtime was: ${prev.mtime}`)
+        if(curr.mtime != prev.mtime) {
+            fs.readFile('snort.log', (err, data) => {
+                console.log(data)
+            })
+        }
     })
 })
 
