@@ -12,8 +12,13 @@ bot.command('monitor', ctx => {
     fs.watchFile('snort.log', (curr, prev) => {
         if(curr.mtime != prev.mtime) {
             fs.readFile('snort.log', 'utf8', (err, data) => {
-                console.log(String(data))
-                ctx.reply(data)
+                let first = '[**]'
+                let last = 'ECHO'
+                let str = data
+                let firstChar = str.search(first)
+                let lastChar = str.search(last)
+                const finalData = str.slice(Number(firstChar))
+                ctx.reply(finalData)
             })
         }
     })
