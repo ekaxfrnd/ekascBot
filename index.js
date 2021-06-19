@@ -17,7 +17,7 @@ bot.command('monitor', ctx => {
                 let str = data
                 let firstChar = str.search(first)
                 let lastChar = str.search(last)
-                const finalData = str.slice(Number(firstChar))
+                const finalData = str.substring(Number(firstChar), Number(lastChar))
                 ctx.reply(finalData)
             })
         }
