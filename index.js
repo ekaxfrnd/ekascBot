@@ -26,7 +26,7 @@ bot.command('monitor', async ctx => {
         //     }
         // })
         const { curr, prev } = await watch('snort.log')
-        if(curr != prev) {
+        if(curr.mtime != prev.mtime) {
             console.log(`current time is: ${curr.mtime}`)
             console.log(`previous time was: ${prev.mtime}`)
         }
