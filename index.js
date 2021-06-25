@@ -8,20 +8,24 @@ bot.start(ctx => {
     ctx.reply('haii')
 })
 
-bot.command('monitor', ctx => {
-    fs.watchFile('snort.log', (curr, prev) => {
-        if(curr.mtime != prev.mtime) {
-            fs.readFile('snort.log', 'utf8', (err, data) => {
-                let first = '[**]'
-                let last = 'ECHO'
-                let str = data
-                let firstChar = str.search(first)
-                let lastChar = str.search(last)
-                const finalData = str.substring(Number(firstChar), Number(lastChar))
-                ctx.reply(finalData)
-            })
-        }
-    })
+bot.command('monitor', async ctx => {
+    try {
+        await fs.watchFile('snort.log', (curr, prev) => {
+            if(curr.mtime != prev.mtime) {
+                fs.readFile('snort.log', 'utf8', (err, data) => {
+                    let first = '[**]'
+                    let last = 'ECHO'
+                    let str = data
+                    let firstChar = str.search(first)
+                    let lastChar = str.search(last)
+                    const finalData = str.substring(Number(firstChar), Number(lastChar))
+                    ctx.reply(finalData)
+                })
+            }
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
 })
 
 bot.launch()
