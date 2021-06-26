@@ -15,19 +15,17 @@ bot.command('monitor', async ctx => {
             persistent: true,
             interval: 1000
         }, (curr, prev) => {
-            if(curr.mtime != prev.mtime) {
-                setInterval(() => {
-                    fs.readFile('snort.log', 'utf8', (err, data) => {
-                        let first = '[**]'
-                        let last = 'ECHO'
-                        let str = data
-                        let firstChar = str.search(first)
-                        let lastChar = str.search(last)
-                        const finalData = str.substring(Number(firstChar), Number(lastChar))
-                        ctx.reply(finalData)
-                    })
-                }, 1000)
-            }
+            setInterval(() => {
+                fs.readFile('snort.log', 'utf8', (err, data) => {
+                    let first = '[**]'
+                    let last = 'ECHO'
+                    let str = data
+                    let firstChar = str.search(first)
+                    let lastChar = str.search(last)
+                    const finalData = str.substring(Number(firstChar), Number(lastChar))
+                    ctx.reply(finalData)
+                })
+            }, 1000)
         })
     } catch (err) {
         console.log(err.message)
