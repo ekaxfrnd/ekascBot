@@ -1,35 +1,22 @@
 const { Telegraf } = require('telegraf')
-const fs = require('fs')
+const { watch, createReadStream } = require('fs')
 require('dotenv').config()
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
-    ctx.reply('haii')
+    ctx.reply(`hello Admin, type /monitor to start the IDS.`)
 })
 
-bot.command('monitor', async ctx => {
-    try {
-        await fs.watchFile('snort.log', {
-            bigint: false,
-            persistent: true,
-            interval: 1000
-        }, (curr, prev) => {
-            setInterval(() => {
-                fs.readFile('snort.log', 'utf8', (err, data) => {
-                    let first = '[**]'
-                    let last = 'ECHO'
-                    let str = data
-                    let firstChar = str.search(first)
-                    let lastChar = str.search(last)
-                    const finalData = str.substring(Number(firstChar), Number(lastChar))
-                    ctx.reply(finalData)
+bot.command('monitor', ctx => {
+    watch('snort', { encoding: 'utf8'}, (eventType, filename) => {
+        if(eventType == 'change') {
+            createReadStream(filename)
+                .on('data', data => {
+                    console.log(data.toString())
                 })
-            }, 1000)
-        })
-    } catch (err) {
-        console.log(err.message)
-    }
+        }
+    })
 })
 
 bot.launch()
