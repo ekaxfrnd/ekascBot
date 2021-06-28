@@ -4,7 +4,7 @@
   "description": "a simple bot for my graduation college",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "pm2 start index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ekaxfrnd/ekascBot#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.7",
+    "pm2": "^5.1.0",
     "telegraf": "^3.38.0"
   }
 }
