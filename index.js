@@ -13,7 +13,7 @@ bot.command('monitor', ctx => {
         if(eventType == 'change') {
             createReadStream(filename)
                 .on('data', data => {
-                    console.log(data.toString())
+                    ctx.reply(data.toString())
                 })
         }
     })
