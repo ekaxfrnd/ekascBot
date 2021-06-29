@@ -9,9 +9,9 @@ bot.start(ctx => {
 })
 
 bot.command('monitor', ctx => {
-    watch('snort.log', { encoding: 'utf8'}, (eventType, filename) => {
+    watch('snort.log', { encoding: 'utf8' }, (eventType, filename) => {
         if(eventType == 'change') {
-            createReadStream(filename)
+            createReadStream('snort.log')
                 .on('data', data => {
                     ctx.reply(data.toString())
                 })
