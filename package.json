@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/ekaxfrnd/ekascBot#readme",
   "dependencies": {
+    "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",
     "pm2": "^5.1.0",
+    "read-last-lines": "^1.8.0",
     "telegraf": "^3.38.0"
   }
 }
