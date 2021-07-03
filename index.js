@@ -7,8 +7,6 @@ const readLastLines = require('read-last-lines')
 const path = require('path')
 
 const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
-// const myPath = path.join(__dirname, '../../log/snort.log')
-// console.log(myPath)
 
 const watcher = chokidar.watch(myPath, {
     persistent: true,
@@ -28,22 +26,18 @@ bot.command('monitor', ctx => {
         try {
             await readLastLines.read(path, 6)
                 .then(lines => {
+                    const report = lines
+                    const reportArray = report.split(/\r?\n/)
                     console.log(lines)
-                    ctx.reply(lines)
+                    ctx.reply(`
+There is an attack:
+type: ${reportArray[0].slice(20, -5)}
+                    `)
                 }) 
         } catch (err) {
             console.log(err.message)
         }
     })
 })
-
-// watcher.on('change', async path => {
-//     try {
-//         await readLastLines.read(path, 5)
-//             .then(lines => console.log(lines))
-//     } catch (err) {
-//         console.log(err.message)
-//     }
-// })
 
 bot.launch()
