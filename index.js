@@ -22,15 +22,15 @@ bot.start(ctx => {
     ctx.reply(`hello Admin, type /monitor to start the IDS.`)
 })
 
-bot.command('monitor', async ctx => {
-    try {
-        watcher.on('change', path => {
+bot.command('monitor', ctx => {
+    watcher.on('change', async path => {
+        try {
             await readLastLines.read(path, 5)
                 .then(lines => console.log(lines))
-        })
-    } catch (err) {
-        console.log(err.message)
-    }
+        } catch (err) {
+            console.log(err.message)
+        }
+    })
 })
 
 bot.launch()
