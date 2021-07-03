@@ -4,7 +4,7 @@
   "description": "a simple bot for my graduation college",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
     "pm2": "^5.1.0",
     "read-last-lines": "^1.8.0",
     "telegraf": "^3.38.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
   }
 }
