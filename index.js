@@ -26,12 +26,26 @@ bot.command('monitor', ctx => {
         try {
             await readLastLines.read(path, 6)
                 .then(lines => {
-                    const report = lines
-                    const reportArray = report.split(/\r?\n/)
+                    const arrayReport = lines.split(/\r?\n/)
+
+                    const arrayMonth = [
+                        'January', 'February', 'March', 'April',
+                        'May', 'June', 'July', 'August',
+                        'September','October', 'November', 'December' 
+                    ]
+
+                    const month = arrayMonth[Number(arrayReport[2].split(' ')[0].split('/')[0]) - 1]
+                    const day = arrayReport[2].split('/')[1].split('-')[0]
+                    const year = new Date().getFullYear()
+
+                    const attackType = arrayReport[0].slice(20, -5).toUpperCase()
+                    const attackDay =  `${month} ${day} ${year}`
+
                     console.log(lines)
                     ctx.reply(`
-There is an attack:
-type: ${reportArray[0].slice(20, -5)}
+THERE IS AN ATTACK:
+TYPE: ${attackType}
+DATE/TIME: ${attackDay}
                     `)
                 }) 
         } catch (err) {
