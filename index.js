@@ -40,6 +40,7 @@ bot.command('monitor', ctx => {
                     const attackType = arrayReport[0].slice(20, -5).toUpperCase()
                     const attackDate =  `${month} ${Number(day)}, ${year}`
                     const attackTime = `${time} WITA`
+                    const attackSource = arrayReport[2].split(' ')[1]
 
                     console.log(lines)
                     ctx.reply(`
@@ -47,6 +48,7 @@ THERE IS AN ATTACK:
 TYPE: ${attackType}
 DATE: ${attackDate}
 TIME: ${attackTime}
+SOURCE: ${attackSource}
                     `)
                 }) 
         } catch (err) {
