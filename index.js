@@ -13,8 +13,6 @@ const watcher = chokidar.watch(myPath, {
     binaryInterval: 1000
 })
 
-const log = console.log.bind(console)
-
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
@@ -37,15 +35,18 @@ bot.command('monitor', ctx => {
                     const month = arrayMonth[Number(arrayReport[2].split(' ')[0].split('/')[0]) - 1]
                     const day = arrayReport[2].split('/')[1].split('-')[0]
                     const year = new Date().getFullYear()
+                    const time = arrayReport[2].split('/')[1].split('-')[1].slice(0, 8)
 
                     const attackType = arrayReport[0].slice(20, -5).toUpperCase()
-                    const attackDay =  `${month} ${day} ${year}`
+                    const attackDate =  `${month} ${Number(day)}, ${year}`
+                    const attackTime = `${time} WITA`
 
                     console.log(lines)
                     ctx.reply(`
 THERE IS AN ATTACK:
 TYPE: ${attackType}
-DATE/TIME: ${attackDay}
+DATE: ${attackDate}
+TIME: ${attackTime}
                     `)
                 }) 
         } catch (err) {
