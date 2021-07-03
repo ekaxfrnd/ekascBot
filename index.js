@@ -2,21 +2,35 @@ const { Telegraf } = require('telegraf')
 const { watch, createReadStream } = require('fs')
 require('dotenv').config()
 
+const chokidar = require('chokidar')
+const readLastLines = require('read-last-lines')
+const path = require('path')
+
+const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
+console.log(myPath)
+
+const watcher = chokidar.watch(myPath, {
+    persistent: true,
+    binaryInterval: 1000
+})
+
+const log = console.log.bind(console)
+
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
     ctx.reply(`hello Admin, type /monitor to start the IDS.`)
 })
 
-bot.command('monitor', ctx => {
-    watch('snort.log', { encoding: 'utf8' }, (eventType, filename) => {
-        if(eventType == 'change') {
-            createReadStream('snort.log')
-                .on('data', data => {
-                    ctx.reply(data.toString())
-                })
-        }
-    })
+bot.command('monitor', async ctx => {
+    try {
+        watcher.on('change', path => {
+            await readLastLines.read(path, 5)
+                .then(lines => console.log(lines))
+        })
+    } catch (err) {
+        console.log(err.message)
+    }
 })
 
 bot.launch()
