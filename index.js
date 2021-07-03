@@ -30,7 +30,7 @@ bot.command('monitor', ctx => {
                 .then(lines => {
                     console.log(lines)
                     ctx.reply(lines)
-                } 
+                }) 
         } catch (err) {
             console.log(err.message)
         }
