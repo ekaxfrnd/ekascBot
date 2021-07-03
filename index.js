@@ -26,8 +26,11 @@ bot.start(ctx => {
 bot.command('monitor', ctx => {
     watcher.on('change', async path => {
         try {
-            await readLastLines.read(path, 5)
-                .then(lines => console.log(lines))
+            await readLastLines.read(path, 6)
+                .then(lines => {
+                    console.log(lines)
+                    ctx.reply(lines)
+                } 
         } catch (err) {
             console.log(err.message)
         }
