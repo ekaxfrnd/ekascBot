@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf')
-const { watch, createReadStream } = require('fs')
+const { watch, createReadStream, copyFileSync } = require('fs')
 require('dotenv').config()
 
 const chokidar = require('chokidar')
@@ -19,7 +19,8 @@ bot.start(ctx => {
     ctx.reply(`hello Admin, type /monitor to start the IDS.`)
 })
 
-bot.command('monitor', ctx => {
+
+bot.command('logStart', ctx => {
     watcher.on('change', async path => {
         try {
             await readLastLines.read(path, 6)
@@ -57,6 +58,15 @@ PROTOCOL: ${attackProtocol}
             console.log(err.message)
         }
     })
+})
+
+
+bot.help(ctx => {
+    ctx.reply(`
+/start      to start the bot
+/logStart   to start the SNORT packet logger
+/logStop    top stop the SNORT packet logger 
+    `)
 })
 
 bot.launch()
