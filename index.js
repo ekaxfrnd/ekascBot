@@ -20,7 +20,10 @@ bot.start(ctx => {
 })
 
 bot.command('logStart', async ctx => {
-    await watcher.on('change', async path => {
+    await chokidar.watch(myPath, {
+        persistent: true,
+        binaryInterval: 1000
+    }).on('change', async path => {
         try {
             await readLastLines.read(path, 6)
                 .then(lines => {
