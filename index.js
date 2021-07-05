@@ -68,21 +68,11 @@ bot.command('logStop', async ctx => {
     }
 })
 
-bot.command('logPause', async ctx => {
-    try {
-        await watcher.unwatch(myPath)
-        ctx.reply('log puased.')
-    } catch (err) {
-        console.log(err.message)
-    }
-})
-
 bot.help(ctx => {
     ctx.reply(`
-/start      to start the bot
-/logStart   to start the SNORT packet logger
-/logStop    to stop the SNORT packet logger 
-/logPause   to puase the SNORT packet logger
+/start          to start the bot
+/logStart       to start the SNORT packet logger
+/logStop        to stop the SNORT packet logger
     `)
 })
 
