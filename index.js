@@ -21,7 +21,7 @@ bot.start(ctx => {
 
 bot.command('logStart', ctx => {
     chokidar.watch(myPath, {
-        persistent: true,
+        persistent: false,
         binaryInterval: 1000
     }).on('change', async path => {
         try {
