@@ -16,9 +16,8 @@ const watcher = chokidar.watch(myPath, {
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
-    ctx.reply(`hello Admin, type /monitor to start the IDS.`)
+    ctx.reply(`hello Admin, type /logStart to start the IDS.`)
 })
-
 
 bot.command('logStart', ctx => {
     watcher.on('change', async path => {
@@ -60,12 +59,30 @@ PROTOCOL: ${attackProtocol}
     })
 })
 
+bot.command('logStop', async ctx => {
+    try {
+        await watcher.close()
+            .then(() => ctx.reply('log stopped.'))
+    } catch (err) {
+        console.log(err.message)
+    }
+})
+
+bot.command('logPause', async ctx => {
+    try {
+        await watcher.unwatch('')
+        ctx.reply('log puased.')
+    } catch (err) {
+        console.log(err.message)
+    }
+})
 
 bot.help(ctx => {
     ctx.reply(`
 /start      to start the bot
 /logStart   to start the SNORT packet logger
-/logStop    top stop the SNORT packet logger 
+/logStop    to stop the SNORT packet logger 
+/logPause   to puase the SNORT packet logger
     `)
 })
 
