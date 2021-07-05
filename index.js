@@ -16,7 +16,7 @@ const watcher = chokidar.watch(myPath, {
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start(ctx => {
-    ctx.reply(`hello Admin, type /logStart to start the IDS.`)
+    ctx.reply(`hello there, type /help to see more commands.`)
 })
 
 bot.command('logStart', ctx => {
@@ -70,7 +70,14 @@ bot.command('logStop', async ctx => {
 
 bot.help(ctx => {
     ctx.reply(`
-/start          to start the bot
+I can help you monitor snort logs from telegram.
+You can control me by sending these commands:
+
+# General
+/start - start the bot
+/help - show this help
+
+# Snort
 /logStart       to start the SNORT packet logger
 /logStop        to stop the SNORT packet logger
     `)
