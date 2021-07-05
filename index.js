@@ -19,8 +19,8 @@ bot.start(ctx => {
     ctx.reply(`hello there, type /help to see more commands.`)
 })
 
-bot.command('logStart', ctx => {
-    watcher.on('change', async path => {
+bot.command('logStart', async ctx => {
+    await watcher.on('change', async path => {
         try {
             await readLastLines.read(path, 6)
                 .then(lines => {
@@ -74,12 +74,12 @@ I can help you monitor snort logs from telegram.
 You can control me by sending these commands:
 
 # General
-/start - start the bot
-/help - show this help
+/start          start the bot
+/help           show this help
 
 # Snort
-/logStart       to start the SNORT packet logger
-/logStop        to stop the SNORT packet logger
+/logStart       start the SNORT packet logger
+/logStop        stop the SNORT packet logger
     `)
 })
 
