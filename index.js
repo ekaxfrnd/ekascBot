@@ -19,8 +19,8 @@ bot.start(ctx => {
     ctx.reply(`hello there, type /help to see more commands.`)
 })
 
-bot.command('logStart', async ctx => {
-    await chokidar.watch(myPath, {
+bot.command('logStart', ctx => {
+    chokidar.watch(myPath, {
         persistent: true,
         binaryInterval: 1000
     }).on('change', async path => {
