@@ -70,7 +70,7 @@ bot.command('logStop', async ctx => {
 
 bot.command('logPause', async ctx => {
     try {
-        await watcher.unwatch('')
+        await watcher.unwatch(myPath)
         ctx.reply('log puased.')
     } catch (err) {
         console.log(err.message)
