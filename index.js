@@ -9,8 +9,7 @@ const path = require('path')
 const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
 
 const watcher = chokidar.watch(myPath, {
-    persistent: false,
-    binaryInterval: 1000
+    persistent: true
 })
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -20,6 +19,7 @@ bot.start(ctx => {
 })
 
 bot.command('logStart', ctx => {
+    watcher.on('ready', () => ctx.reply('log started.'))
     watcher.on('change', async path => {
         try {
             await readLastLines.read(path, 6)
@@ -61,8 +61,8 @@ PROTOCOL: ${attackProtocol}
 
 bot.command('logStop', async ctx => {
     try {
-        await watcher.close()
-            .then(() => ctx.reply('log stopped.'))
+        await watcher.unwatch(myPath)
+        ctx.reply('log stopped.')
     } catch (err) {
         console.log(err.message)
     }
