@@ -61,8 +61,10 @@ PROTOCOL: ${attackProtocol}
 
 bot.command('logStop', async ctx => {
     try {
-        await watcher.unwatch(myPath)
-        ctx.reply('log stopped.')
+        await watcher.close()
+            .then(() => ctx.reply(`log stopped.`))
+        // await watcher.unwatch(myPath)
+        // ctx.reply('log stopped.')
     } catch (err) {
         console.log(err.message)
     }
