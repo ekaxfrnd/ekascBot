@@ -37,7 +37,7 @@ bot.command('logStart', ctx => {
                     const year = new Date().getFullYear()
                     const time = arrayReport[2].split('/')[1].split('-')[1].slice(0, 8)
 
-                    const attackType = arrayReport[0].slice(20, -5).toUpperCase()
+                    const attackType = arrayReport[0].slice(19, -5).toUpperCase()
                     const attackDate =  `${month} ${Number(day)}, ${year}`
                     const attackTime = `${time} WITA`
                     const attackSource = arrayReport[2].split(' ')[1]
