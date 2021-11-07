@@ -6,7 +6,7 @@ const chokidar = require('chokidar')
 const readLastLines = require('read-last-lines')
 const path = require('path')
 
-// const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
+const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
 
 const watcher = chokidar.watch(myPath, {
     persistent: true
