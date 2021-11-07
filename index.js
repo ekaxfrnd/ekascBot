@@ -6,7 +6,7 @@ const chokidar = require('chokidar')
 const readLastLines = require('read-last-lines')
 const path = require('path')
 
-const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
+// const myPath = path.join(__dirname + '../../../../var/log/snort/alert')
 
 const watcher = chokidar.watch(myPath, {
     persistent: true
@@ -37,20 +37,22 @@ bot.command('logStart', ctx => {
                     const year = new Date().getFullYear()
                     const time = arrayReport[2].split('/')[1].split('-')[1].slice(0, 8)
 
-                    const attackType = arrayReport[0].slice(19, -5).toUpperCase()
+                    const attackMessage = arrayReport[0].slice(19, -5).toUpperCase()
                     const attackDate =  `${month} ${Number(day)}, ${year}`
                     const attackTime = `${time} WITA`
                     const attackSource = arrayReport[2].split(' ')[1]
                     const attackProtocol = arrayReport[3].split(' ')[0]
+                    const attackClassType = arrayReport[1].slice(17, -15)
 
                     console.log(lines)
                     ctx.reply(`
 THERE IS AN ATTACK:
-TYPE: ${attackType}
+MESSAGE: ${attackMessage}
 DATE: ${attackDate}
 TIME: ${attackTime}
 SOURCE: ${attackSource}
 PROTOCOL: ${attackProtocol}
+CLASSTYPE: ${attackClassType}
                     `)
                 }) 
         } catch (err) {
