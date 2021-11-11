@@ -18,7 +18,7 @@ bot.start(ctx => {
     ctx.reply(`hello there, type /help to see more commands.`)
 })
 
-bot.command('logStart', ctx => {
+bot.command('log', ctx => {
     watcher.on('ready', () => ctx.reply('log started.'))
     watcher.on('change', async path => {
         try {
@@ -41,18 +41,16 @@ bot.command('logStart', ctx => {
                     const attackDate =  `${month} ${Number(day)}, ${year}`
                     const attackTime = `${time} WITA`
                     const attackSource = arrayReport[2].split(' ')[1]
-                    const attackProtocol = arrayReport[3].split(' ')[0]
-                    const attackClassType = arrayReport[1].slice(17, -15)
+                    const attackClassType = arrayReport[1].slice(17, -16)
 
                     console.log(lines)
                     ctx.reply(`
-THERE IS AN ATTACK:
-MESSAGE: ${attackMessage}
-DATE: ${attackDate}
-TIME: ${attackTime}
-SOURCE: ${attackSource}
-PROTOCOL: ${attackProtocol}
-CLASSTYPE: ${attackClassType}
+there is an attack:
+messsage: ${attackMessage}
+date: ${attackDate}
+time: ${attackTime}
+source: ${attackSource}
+classtype: ${attackClassType}
                     `)
                 }) 
         } catch (err) {
@@ -82,8 +80,7 @@ You can control me by sending these commands:
 /help           show this help
 
 # Snort
-/logStart       start the SNORT packet logger
-/logStop        stop the SNORT packet logger
+/log       start the SNORT NIDS mode
     `)
 })
 
