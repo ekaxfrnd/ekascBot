@@ -22,37 +22,32 @@ bot.command('log', ctx => {
     watcher.on('ready', () => ctx.reply('log started.'))
     watcher.on('change', async path => {
         try {
-            await readLastLines.read(path, 6)
-                .then(lines => {
-                    const arrayReport = lines.split(/\r?\n/)
+            const lines = await readLastLines.read(path, 1)
+            const arrMonth = [
+                'January', 'February', 'March', 'April',
+                'May', 'June', 'July', 'August',
+                'September','October', 'November', 'December'
+            ]
+            // console.log(lines.split('/')[0])
+            const month = arrMonth[Number(lines.split('/')[0]) - 1]
+            const day = lines.split('/')[1].slice(0, 2)
+            const year = new Date().getFullYear()
+            const time = lines.split('-')[1].slice(0,8)
+        
+            const attMessage = lines.split('[')[2].slice(13)
+            const attSource = lines.split('}')[1].slice(1)
+            const attClassType = lines.split(':')[5].slice(1, -11)
+            console.log(attClassType)
 
-                    const arrayMonth = [
-                        'January', 'February', 'March', 'April',
-                        'May', 'June', 'July', 'August',
-                        'September','October', 'November', 'December' 
-                    ]
-
-                    const month = arrayMonth[Number(arrayReport[2].split(' ')[0].split('/')[0]) - 1]
-                    const day = arrayReport[2].split('/')[1].split('-')[0]
-                    const year = new Date().getFullYear()
-                    const time = arrayReport[2].split('/')[1].split('-')[1].slice(0, 8)
-
-                    const attackMessage = arrayReport[0].slice(19, -5).toUpperCase()
-                    const attackDate =  `${month} ${Number(day)}, ${year}`
-                    const attackTime = `${time} WITA`
-                    const attackSource = arrayReport[2].split(' ')[1]
-                    const attackClassType = arrayReport[1].slice(17, -16)
-
-                    console.log(lines)
-                    ctx.reply(`
+                console.log(lines)
+                ctx.reply(`
 there is an attack:
-messsage: ${attackMessage}
-date: ${attackDate}
-time: ${attackTime}
-source: ${attackSource}
-classtype: ${attackClassType}
+messsage: ${attMessage}
+date: ${day} ${month}, ${year}
+time: ${time}
+source: ${attSource}
+classtype: ${attClassType}
                     `)
-                }) 
         } catch (err) {
             console.log(err.message)
         }
