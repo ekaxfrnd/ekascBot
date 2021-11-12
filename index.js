@@ -28,22 +28,22 @@ bot.command('log', ctx => {
                 'May', 'June', 'July', 'August',
                 'September','October', 'November', 'December'
             ]
-            // console.log(lines.split('/')[0])
+	    
             const month = arrMonth[Number(lines.split('/')[0]) - 1]
             const day = lines.split('/')[1].slice(0, 2)
             const year = new Date().getFullYear()
             const time = lines.split('-')[1].slice(0,8)
         
             const attMessage = lines.split('[')[2].slice(13)
-	        const attSource = lines.split('}')[1].split('->')[0].slice(1)
+	    const attSource = lines.split('}')[1].split('->')[0].slice(1)
             const attClassType = lines.split(':')[5].slice(1, -11)
 
                 console.log(lines)
                 ctx.reply(`
 there is an attack:
-messsage: ${attMessage}
+messsage: ${attMessage.toUpper()}
 date: ${day} ${month}, ${year}
-time: ${time}
+time: ${time} WITA
 source: ${attSource}
 classtype: ${attClassType}
                     `)
