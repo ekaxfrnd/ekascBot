@@ -41,7 +41,7 @@ bot.command('log', ctx => {
                 console.log(lines)
                 ctx.reply(`
 there is an attack:
-messsage: ${attMessage.toUpper()}
+messsage: ${attMessage.toUpperCase()}
 date: ${day} ${month}, ${year}
 time: ${time} WITA
 source: ${attSource}
