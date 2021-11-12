@@ -35,9 +35,8 @@ bot.command('log', ctx => {
             const time = lines.split('-')[1].slice(0,8)
         
             const attMessage = lines.split('[')[2].slice(13)
-            const attSource = lines.split('}')[1].slice(1)
+	        const attSource = lines.split('}')[1].split('->')[0].slice(1)
             const attClassType = lines.split(':')[5].slice(1, -11)
-            console.log(attClassType)
 
                 console.log(lines)
                 ctx.reply(`
